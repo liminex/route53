@@ -159,7 +159,7 @@ action :delete do
   end
 
   def delete
-    zone(aws).records.get(name, type).destroy
+    zone(aws).records.get(name, type, set_identifier).destroy
     Chef::Log.debug("Destroyed record: #{name} #{type}")
   rescue Excon::Errors::BadRequest => e
     Chef::Log.error Nokogiri::XML(e.response.body).xpath('//xmlns:Message').text
